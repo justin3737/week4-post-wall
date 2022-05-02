@@ -1,10 +1,12 @@
 const handleSuccess = require('../service/handleSuccess');
 const handleError = require('../service/handleError');
-const Posts = require('../models/post');
+
+const User = require('../models/users');
+const Post = require('../models/posts');
 
 const posts = {
   async getPosts(req, res) {
-    const allPosts = await Posts.find();
+    const allPosts = await Post.find();
     handleSuccess(res, allPosts);
   },
   async createdPosts(req, res) {
@@ -12,8 +14,8 @@ const posts = {
       const { body } = req;
 
       if (body.content) {
-        const newPost = await Posts.create({
-          name: body.name,
+        const newPost = await Post.create({
+          user: body.user,
           content: body.content,
         })
         handleSuccess(res, newPost);
