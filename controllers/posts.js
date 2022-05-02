@@ -6,10 +6,12 @@ const Post = require('../models/posts');
 
 const posts = {
   async getPosts(req, res) {
-    const allPosts = await Post.find().populate({
+    const timeSort = req.query.timeSort === "asc" ? "createAt" :  "-createAt";
+    const q = req.query.q !== undefined ? { "content": new RegExp(req.query.q, "i") } : {};
+    const allPosts = await Post.find(q).populate({
       path: 'user',
       select: 'name photo'
-    });
+    }).sort(timeSort);
     handleSuccess(res, allPosts);
   },
   async createdPosts(req, res) {
