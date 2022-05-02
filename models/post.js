@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const postSchema = new  mongoose.Schema({
+const postsSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, '貼文姓名未填寫']
@@ -8,25 +8,28 @@ const postSchema = new  mongoose.Schema({
     type: String,
     default: ""
   },
-  createdAt: {
+  createAt: {
     type: Date,
     default: Date.now,
     select: false
   },
   content: {
     type: String,
-    required: [true, '貼文內容未填寫']
+    required: [true, 'Content 未填寫'],
   },
   likes: {
     type: Number,
     default: 0
   },
-  comments: {
+  comments:{
     type: Number,
     default: 0
-  }
+  },
 });
 
-const posts = mongoose.model('post', postSchema);
+const posts = mongoose.model(
+  'posts',
+  postsSchema
+);
 
-modeule.export = posts;
+module.exports = posts;
