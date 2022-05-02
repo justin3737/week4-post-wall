@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const usersSchema = new mongoose.Schema({
-  user: {
+  name: {
     type: String,
     required: [true, '貼文姓名未填寫']
   },
@@ -8,7 +8,7 @@ const usersSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Email 未填寫']
   },
-  image: {
+  photo: {
     type: String
   },
   createdAt: {
@@ -18,6 +18,6 @@ const usersSchema = new mongoose.Schema({
   }
 });
 
-const users = mongoose.model('users', usersSchema);
+const users = mongoose.model('user', usersSchema);
 
 module.exports = users;

@@ -6,7 +6,10 @@ const Post = require('../models/posts');
 
 const posts = {
   async getPosts(req, res) {
-    const allPosts = await Post.find();
+    const allPosts = await Post.find().populate({
+      path: 'user',
+      select: 'name photo'
+    });
     handleSuccess(res, allPosts);
   },
   async createdPosts(req, res) {
