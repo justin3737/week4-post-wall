@@ -1,9 +1,21 @@
 function init() {
   getPost();
+  //監聽下拉選單
+  $on(qs('#timeSelect'), 'change', function(){
+    getPost(this.value);
+  })
+  //監聽關鍵字搜尋按鈕
+  $on(qs('#searchBtn'), 'click',function(){
+    let text = qs('#searchText').value;
+    let time = qs('#timeSelect').value;
+    getPost(time, text)
+  })
 }
 
-function getPost () {
-  fetch('http://127.0.0.1:3000/posts')
+function getPost (sort, qString) {
+  let timeSort = sort || 'desc';
+  let q = qString || '';
+  fetch(`http://127.0.0.1:3000/posts?timeSort=${timeSort}&q=${q}`)
     .then(res => res.json())
     .then(posts => {
       updateList(posts.data)
