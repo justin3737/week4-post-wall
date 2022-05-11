@@ -49,7 +49,7 @@ function updateList(dataList) {
               >${data.user.name}</a
             >
             <div class="font-baloo text-xs leading-5 text-gray-300">
-              2022/1/10 12:00
+            ${formatDate(data.createAt)}
             </div>
           </div>
         </div>
