@@ -15,6 +15,7 @@ function formatDate(date){
   const month = newDate.getMonth() + 1
   const day = newDate.getDate()
   const hour = newDate.getHours()
-  const minute = newDate.getMinutes()
+  let minute = newDate.getMinutes()
+  minute = (minute.toString().length < 2)? `${0+minute}`: minute
   return `${year}-${month}-${day} ${hour}:${minute}`
 }
