@@ -106,6 +106,7 @@
             >貼文內容</label
           >
           <textarea
+            id="content"
             class="mb-4 block min-h-[169px] w-full border-2 border-black-100 py-3 px-4"
             placeholder="輸入您的貼文內容"
           ></textarea>
@@ -122,6 +123,7 @@
           />
           <p class="mt-8 text-center text-sm text-red-100 hidden" data-id="error">圖片檔案過大，僅限 1mb 以下檔案<br />圖片格式錯誤，僅限 JPG、PNG 圖片</p>
           <input
+            id="sendPost"
             type="button"
             class="mx-auto mt-8 block cursor-pointer w-[68.86%] rounded-lg border-2 border-black-100 bg-gray-200 font-azeret font-bold leading-[50px] text-black-100 hover:bg-yellow-100 hover:shadow-btn"
             value="送出貼文"
@@ -199,7 +201,10 @@
         </ul>
       </nav>
     </main>
+    <script src="js/helper.js"></script>
+    <script src="js/create-post.js"></script>
     <script>
+      /*
       const btn = document.querySelector('input[type="button"]');
       btn.addEventListener('click', e => {
         const {target} = e
@@ -208,6 +213,7 @@
         target.classList.add('mt-4')
         errorElem.classList.remove('hidden')
       })
+      */
     </script>
   </body>
 </html>
