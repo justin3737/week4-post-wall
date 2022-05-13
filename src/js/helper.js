@@ -14,8 +14,11 @@ function formatDate(date){
   const year = newDate.getFullYear()
   const month = newDate.getMonth() + 1
   const day = newDate.getDate()
-  const hour = newDate.getHours()
-  let minute = newDate.getMinutes()
-  minute = (minute.toString().length < 2)? `${0+minute}`: minute
+  const hour = replaceZero(newDate.getHours())
+  const minute = replaceZero(newDate.getMinutes())
   return `${year}-${month}-${day} ${hour}:${minute}`
+}
+
+const replaceZero = (number) => {
+  return (number.toString().length < 2)? `0${number}`: number
 }

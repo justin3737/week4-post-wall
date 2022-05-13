@@ -40,7 +40,7 @@ function updateList(dataList) {
           <img
             src="${data.user.photo}"
             alt="avatar"
-            class="mr-4 h-[45px] w-[45px] flex-shrink-0 object-cover rounded-full"
+            class="mr-4 h-[45px] w-[45px] flex-shrink-0 object-cover rounded-full border-solid border-2 border-black-100"
           />
           <div class="flex-grow">
             <a
