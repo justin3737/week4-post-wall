@@ -1,17 +1,23 @@
 $on(qs('#sendPost'), 'click', function(){
-    const contentVal = qs('#content').value;
-    console.log(contentVal)
-    return;
-    var url = 'https://example.com/profile';
-    var data = {username: 'example'};
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
 
-    fetch(url, {
-    method: 'POST', // or 'PUT'
-    body: JSON.stringify(data), // data can be `string` or {object}!
-    headers: new Headers({
-        'Content-Type': 'application/json'
-    })
-    }).then(res => res.json())
-    .catch(error => console.error('Error:', error))
-    .then(response => console.log('Success:', response));
+    var raw = JSON.stringify({
+        "user": "626fcf6f07f49d8b1a320fb0",
+        "content": qs('#content').value
+    });
+
+    var options = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+    };
+
+    fetch("http://127.0.0.1:3000/posts", options)
+        .then(() => {
+            window.location.href = 'index.html';
+        })
+        .catch(error => console.log('error', error));
+
 })
