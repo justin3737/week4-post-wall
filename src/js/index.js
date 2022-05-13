@@ -57,19 +57,15 @@ function updateList(dataList) {
           ${data.content}
         </p>
         <picture>
-          <source
-            media="(min-width: 1024px)"
-            srcset="../static/images/dynamic-wall/post-photo@2x.png"
-          />
-          <img
-            class="mt-4"
-            src="../static/images/dynamic-wall/post-photo.png"
-            alt="post photo"
-          />
         </picture>
       `;
 
       postlist.append(story)
+
+      if (data.image && data.image.startsWith('https')) {
+        appendImage(data.image, idx);
+      }
+
     });
 
 
