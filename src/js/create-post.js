@@ -15,7 +15,7 @@ $on(qs('#sendPost'), 'click', function(){
         redirect: 'follow'
     };
 
-    fetch("http://127.0.0.1:3000/posts", options)
+    fetch("https://week4metawall.herokuapp.com/posts", options)
         .then(() => {
             window.location.href = 'index.html';
         })

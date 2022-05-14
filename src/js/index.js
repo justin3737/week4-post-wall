@@ -15,7 +15,7 @@ function init() {
 function getPost (sort, qString) {
   let timeSort = sort || 'desc';
   let q = qString || '';
-  fetch(`http://127.0.0.1:3000/posts?timeSort=${timeSort}&q=${q}`)
+  fetch(`https://week4metawall.herokuapp.com/posts?timeSort=${timeSort}&q=${q}`)
     .then(res => res.json())
     .then(posts => {
       updateList(posts.data)
@@ -61,6 +61,7 @@ function updateList(dataList) {
       `;
 
       postlist.append(story)
+
 
       if (data.image && data.image.startsWith('https')) {
         appendImage(data.image, idx);
