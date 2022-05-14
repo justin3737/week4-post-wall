@@ -1,0 +1,58 @@
+{
+	"info": {
+		"_postman_id": "89e69f05-3b42-4493-9b7d-284ac2499ab9",
+		"name": "week4meta",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "取得所有文章",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://week4metawall.herokuapp.com/posts",
+					"protocol": "https",
+					"host": [
+						"week4metawall",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "新增文章",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user\": \"626fcf6f07f49d8b1a320fb0\",\n    \"content\":\"今天又下雨\",\n    \"image\": \"https://menafn.com/updates/pr/2021-11/03/B_f89f0image_story.jpg\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://week4metawall.herokuapp.com/posts",
+					"protocol": "https",
+					"host": [
+						"week4metawall",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
