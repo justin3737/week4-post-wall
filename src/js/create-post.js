@@ -4,7 +4,8 @@ $on(qs('#sendPost'), 'click', function(){
 
     var raw = JSON.stringify({
         "user": "626fcf6f07f49d8b1a320fb0",
-        "content": qs('#content').value
+        "content": qs('#content').value,
+        "image": qs('#img-src').value
     });
 
     var options = {

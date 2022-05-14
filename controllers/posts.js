@@ -22,6 +22,7 @@ const posts = {
         const newPost = await Post.create({
           user: body.user,
           content: body.content,
+          image: body.image
         })
         handleSuccess(res, newPost);
       } else {
