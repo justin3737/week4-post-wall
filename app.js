@@ -4,6 +4,14 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const cors = require('cors');
+const appError = require('./service/appError')
+
+//紀錄錯誤下來，等到服務都處理完，停掉該process
+process.on('uncaughtException', err=>{
+  console.log('Uncaught Exception!')
+  console.log(err);
+  process.exit(1);
+});
 
 // router
 var postsRouter = require('./routes/posts');
@@ -23,7 +31,7 @@ app.use('/posts', postsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  next(createError(404));
+  return next(appError(404, "找無此路由", next));
 });
 
 // error handler
@@ -36,5 +44,12 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
+//未捕捉到的 catch
+process.on('unhandledRejection', (err, promise) => {
+  console.error('未捕捉的 rejection: ', promise, '原因：', err);
+})
+
 
 module.exports = app;
