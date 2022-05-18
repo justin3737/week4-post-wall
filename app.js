@@ -37,7 +37,7 @@ app.use(function(req, res, next) {
 
 // 開發環境錯誤
 const resErrorDev = (err ,res) => {
-  res.status(res.statusCode).json({
+  res.status(err.statusCode).json({
     message: err.message,
     error: err,
     stack: err.stack
@@ -48,7 +48,7 @@ const resErrorDev = (err ,res) => {
 // 自訂的錯誤
 const resErrorProd = (err ,res) => {
   if (res.isOperational) {
-    res.status(res.statusCode).json({
+    res.status(err.statusCode).json({
       message: err.message
     });
   } else {
@@ -63,7 +63,7 @@ const resErrorProd = (err ,res) => {
 }
 
 // 錯誤處理 middleware
-app.use(function(err, res, req, next){
+app.use(function(err, req, res, next) {
   //dev
   err.statusCode = err.statusCode || 500;
   if (process.env.NODE_ENV === 'dev') {
