@@ -26,6 +26,7 @@ function getPost (sort, qString) {
 function updateList(dataList) {
   const postlist = qs('.post-list');
   const postlistEmpty = qs('.post-list-empty');
+  const postlistEmptyDesc = qs('.no-data-desc');
 
   if(dataList.length > 0) {
     postlistEmpty.classList.add('hidden');
@@ -66,11 +67,11 @@ function updateList(dataList) {
       if (data.image && data.image.startsWith('https')) {
         appendImage(data.image, idx);
       }
-
     });
 
-
-
-
+  } else {
+    postlistEmpty.classList.remove('hidden');
+    postlist.classList.add('hidden');
+    postlistEmptyDesc.innerHTML = '查詢資料為空，請嘗試其他關鍵字！'
   }
 }
