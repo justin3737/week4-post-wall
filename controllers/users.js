@@ -29,19 +29,19 @@ const user = {
     } = req;
     //內容不可為空
     if (!name || !email || !password || !confirmPassword) {
-      return next(appError("400", "欄位未正確填寫!", next));
+      return next(appError("400", "欄位未正確填寫!"));
     }
     //密碼正確
     if (password!==confirmPassword) {
-      return next(appError("400", "密碼不一致", next));
+      return next(appError("400", "密碼不一致"));
     }
     //密碼 8 碼以上
     if (!validator.isLength(password, {min:8})) {
-      return next(appError("400", "密碼數字低於 8 碼", next));
+      return next(appError("400", "密碼數字低於 8 碼"));
     }
     //是否為 Email
     if (!validator.isEmail(email)) {
-      return next(appError("400","Email 格式不正看", next));
+      return next(appError("400","Email 格式不正看"));
     }
 
     //加密密碼

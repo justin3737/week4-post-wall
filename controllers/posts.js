@@ -19,7 +19,7 @@ const post =
   createdPosts: handleErrorAsync(async(res, req, next) => {
     const { body } = req;
       if (body.content === undefined || body.user === undefined) {
-        return next(appError(400, '你沒有填寫user或是content', next))
+        return next(appError(400, '你沒有填寫user或是content'))
       }
       const newPost = await Post.create({
         user: body.user,

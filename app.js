@@ -33,7 +33,7 @@ app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  return next(appError(404, "找無此路由", next));
+  return next(appError(404, "找無此路由"));
 });
 
 
