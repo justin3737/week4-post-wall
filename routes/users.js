@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const isAuth = require('../service/isAuth');
 const UserController = require('../controllers/users');
 
 //註冊
@@ -13,7 +14,7 @@ router.post('/sign_in', (req, res, next) =>
 );
 
 //重設密碼
-router.post('/updatePassword', (req, res, next) =>
+router.patch('/updatePassword', isAuth, (req, res, next) =>
   UserController.updatePassword(req, res, next)
 );
 
