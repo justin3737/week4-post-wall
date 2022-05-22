@@ -91,8 +91,28 @@ const user = {
   getProfile: handleErrorAsync(async (req, res, next) => {
     handleSuccess(res, req.user);
   }),
-  postProfile: handleErrorAsync(async (req, res, next) => {
+  updateProfile: handleErrorAsync(async (req, res, next) => {
+    const {
+      user,
+      body: { name, gender },
+    } = req;
+    //需填寫內容
+    if (!(name && gender))
+      return next(appError(400, '請填寫修改資訊'));
+    //名字需要2個字以上
+    if (!validator.isLength(name, {min:2}))
+      return next(appError(400, "名字需要2個字以上"));
+    //正確填寫性別
+    if (!['male','female'].includes(gender))
+      return next(appError(400, "請正確填寫性別"));
 
+    const currUser = await User.findByIdAndUpdate(user._id, {
+      name,
+      gender
+    })
+    console.log(currUser)
+    Object.assign(currUser, { name, gender })
+    handleSuccess(res, currUser);
   })
 }
 

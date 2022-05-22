@@ -24,8 +24,8 @@ router.get('/profile', isAuth, (req, res, next) =>
 );
 
 //更新個人資料
-router.post('/profile', (req, res, next) =>
-  UserController.postProfile(req, res, next)
+router.patch('/profile', isAuth, (req, res, next) =>
+  UserController.updateProfile(req, res, next)
 );
 
 module.exports = router;
