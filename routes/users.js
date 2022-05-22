@@ -13,12 +13,19 @@ router.post('/sign_in', (req, res, next) =>
 );
 
 //重設密碼
-//router.post('/updatePassword');
+router.post('/updatePassword', (req, res, next) =>
+  UserController.updatePassword(req, res, next)
+);
+
 
 //取得個人資料
-//router.get('/profile');
+router.get('/profile', (req, res, next) =>
+  UserController.getProfile(req, res, next)
+);
 
 //更新個人資料
-//router.post('/profile');
+router.post('/profile', (req, res, next) =>
+  UserController.postProfile(req, res, next)
+);
 
 module.exports = router;

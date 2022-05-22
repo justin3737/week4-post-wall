@@ -76,15 +76,24 @@ const user = {
 
     generateSendJWT(user,200,res)
   }),
-  updatePassword: () => {
+  updatePassword: handleErrorAsync(async (req, res, next) => {
+    const { password, confirmPassword } = req.body;
+    if(password !== confirmPassword)
+      return next(appError("400", "密碼不一致！"));
 
-  },
-  getProfile: () => {
+    const newPassword = await bcrypt.hash(password,12);
+    const user = await User.findByIdAndUpdate(req.user.id,{
+      password: newPassword
+    });
 
-  },
-  postProfile: () => {
+    generateSendJWT(user,200,res)
+  }),
+  getProfile: handleErrorAsync(async (req, res, next) => {
 
-  }
+  }),
+  postProfile: handleErrorAsync(async (req, res, next) => {
+
+  })
 }
 
 module.exports = user;
