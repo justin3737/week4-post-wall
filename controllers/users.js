@@ -43,6 +43,10 @@ const user = {
     if (!validator.isEmail(email)) {
       return next(appError("400","Email 格式不正看"));
     }
+    //已被註冊
+    const exist = await User.findOne({ email })
+    if (exist)
+      return next(appError("201","帳號已被註冊，請替換新的 Email！"));
 
     //加密密碼
     password = await bcrypt.hash(req.body.password, 12);
