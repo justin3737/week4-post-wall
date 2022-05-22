@@ -9,7 +9,7 @@ const jwt = require('jsonwebtoken');
 const generateSendJWT = (user, statusCode, res) => {
   // 產生 JWT token
   const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRES_DAY,
+    expiresIn: process.env.JWT_EXPIRES,
   });
   user.password = undefined;
   res.status(statusCode).json({
