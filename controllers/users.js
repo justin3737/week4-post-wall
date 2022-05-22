@@ -89,7 +89,7 @@ const user = {
     generateSendJWT(user,200,res)
   }),
   getProfile: handleErrorAsync(async (req, res, next) => {
-
+    handleSuccess(res, req.user);
   }),
   postProfile: handleErrorAsync(async (req, res, next) => {
 

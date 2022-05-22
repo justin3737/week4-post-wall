@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const isAuth = require('../service/isAuth');
+const isAuth = require('../service/auth');
 const UserController = require('../controllers/users');
 
 //註冊
@@ -18,9 +18,8 @@ router.patch('/updatePassword', isAuth, (req, res, next) =>
   UserController.updatePassword(req, res, next)
 );
 
-
 //取得個人資料
-router.get('/profile', (req, res, next) =>
+router.get('/profile', isAuth, (req, res, next) =>
   UserController.getProfile(req, res, next)
 );
 

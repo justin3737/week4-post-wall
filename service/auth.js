@@ -3,14 +3,15 @@ const appError = require('./appError')
 const jwt = require('jsonwebtoken');
 const User = require('../models/users');
 
-const isAuth = handleErrorAsync(async (req, res, next) => {
+const auth = handleErrorAsync(async (req, res, next) => {
   // 確認 token 是否存在
-  let token;
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith('Bearer')
-  ) {
-    token = req.headers.authorization.split(' ')[1];
+  const {
+    headers: { authorization = '' },
+  } = req;
+
+  let token = '';
+  if (authorization.startsWith('Bearer')) {
+    token = authorization.split(' ')[1];
   }
 
   if (!token) {
@@ -33,4 +34,4 @@ const isAuth = handleErrorAsync(async (req, res, next) => {
   next();
 });
 
-module.exports = isAuth
+module.exports = auth
