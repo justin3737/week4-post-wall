@@ -8,7 +8,9 @@ router.post('/sign_up', (req, res, next) =>
 );
 
 //登入
-//router.post('/sign_in');
+router.post('/sign_in', (req, res, next) =>
+  UserController.signIn(req, res, next)
+);
 
 //重設密碼
 //router.post('/updatePassword');

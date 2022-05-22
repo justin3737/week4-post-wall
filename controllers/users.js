@@ -46,10 +46,10 @@ const user = {
     //已被註冊
     const exist = await User.findOne({ email })
     if (exist)
-      return next(appError("201","帳號已被註冊，請替換新的 Email！"));
+      return next(appError("201","帳號已被註冊，請替換新的 Email!"));
 
     //加密密碼
-    password = await bcrypt.hash(req.body.password, 12);
+    password = await bcrypt.hash(req.body.password, 12)
     const newUser = await User.create({
       email,
       password,
@@ -57,10 +57,34 @@ const user = {
     })
     generateSendJWT(newUser,201,res);
   }),
-  signIn: () => {},
-  updatePassword: () => {},
-  getProfile: () => {},
-  postProfile: () => {}
+  signIn: handleErrorAsync(async (req, res, next) => {
+    const {
+      body: { email, password }
+    } = req
+    //確認帳號密碼不為空
+    if (!(email && password))
+      return next(appError(400, '請填寫帳號及密碼!'))
+
+    //確認有這位使用者
+    const user = await User.findOne({ email }).select('+password')
+    if (!user)
+      return next(appError(400, '您尚未註冊會員!'))
+    //帳號或密碼錯誤
+    const isAuth = await bcrypt.compare(password, user.password);
+    if (!isAuth)
+      return next(appError(400, '您的密碼不正確'))
+
+    generateSendJWT(user,200,res)
+  }),
+  updatePassword: () => {
+
+  },
+  getProfile: () => {
+
+  },
+  postProfile: () => {
+
+  }
 }
 
 module.exports = user;
