@@ -110,7 +110,7 @@ const user = {
       name,
       gender
     })
-    console.log(currUser)
+
     Object.assign(currUser, { name, gender })
     handleSuccess(res, currUser);
   })
