@@ -5,8 +5,7 @@ const handleErrorAsync = require("../service/handleErrorAsync");
 const User = require('../models/users');
 const Post = require('../models/posts');
 
-const post =
-{
+const post = {
   getPosts: handleErrorAsync(async (req, res, next) => {
     const timeSort = req.query.timeSort === "asc" ? "createAt" :  "-createAt";
     const q = req.query.q !== undefined ? { "content": new RegExp(req.query.q) } : {};
@@ -16,7 +15,7 @@ const post =
     }).sort(timeSort);
     handleSuccess(res, allPosts);
   }),
-  createdPosts: handleErrorAsync(async(res, req, next) => {
+  createdPosts: handleErrorAsync(async (req, res, next) => {
     const { body } = req;
       if (body.content === undefined || body.user === undefined) {
         return next(appError(400, '你沒有填寫user或是content'))

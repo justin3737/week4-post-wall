@@ -1,12 +1,13 @@
 var express = require('express');
 var router = express.Router();
 const PostsControllers = require('../controllers/posts');
+const isAuth = require('../service/auth');
 
-router.get('/', (req, res, next) =>
-  PostsControllers.getPosts (req, res, next)
+router.get('/', isAuth, (req, res, next) =>
+  PostsControllers.getPosts(req, res, next)
 );
 
-router.post('/',  (req, res, next) =>
+router.post('/', isAuth, (req, res, next) =>
   PostsControllers.createdPosts(req, res, next)
 );
 
