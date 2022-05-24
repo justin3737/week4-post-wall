@@ -1,6 +1,5 @@
 const handleSuccess = require('../service/handleSuccess');
-const appError = require('../service/appError');
-const handleErrorAsync = require("../service/handleErrorAsync");
+const { handleErrorAsync, appError } = require("../service/handleError");
 
 const User = require('../models/users');
 const Post = require('../models/posts');

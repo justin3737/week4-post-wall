@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const PostsControllers = require('../controllers/posts');
-const isAuth = require('../service/auth');
+const isAuth = require('../middleware/auth');
 
 router.get('/', isAuth, (req, res, next) =>
   PostsControllers.getPosts(req, res, next)

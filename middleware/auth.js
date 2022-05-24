@@ -1,5 +1,4 @@
-const handleErrorAsync = require('./handleErrorAsync')
-const appError = require('./appError')
+const { handleErrorAsync, appError } = require("../service/handleError");
 const jwt = require('jsonwebtoken');
 const User = require('../models/users');
 
