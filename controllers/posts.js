@@ -17,11 +17,16 @@ exports.getPosts = handleErrorAsync(async(res, req, next) => {
 
 exports.createdPosts = handleErrorAsync(async(res, req, next) => {
   const { body } = req;
-    if (body.content === undefined || body.user === undefined) {
-      return next(appError(400, '你沒有填寫user或是content', next))
+    if (body.content === undefined) {
+      return next(appError(400, '你沒有填寫content', next))
     }
+    if (body.image && !body.image.startsWith('https')) {
+      return next(appError(400, '貼文圖片網址錯誤', next));
+    }
+    // 先寫固定的使用者編號
+    const userId = '629b953632e4235f8eb611e5';
     const newPost = await Post.create({
-      user: body.user,
+      user: userId,
       content: body.content,
       image: body.image
     })
