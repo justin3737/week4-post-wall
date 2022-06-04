@@ -1,0 +1,59 @@
+{
+	"info": {
+		"_postman_id": "b12515ed-21f2-4bea-99f7-b74c668ca0dd",
+		"name": "week5_heroku",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11065074"
+	},
+	"item": [
+		{
+			"name": "取得貼文",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://week5-node.herokuapp.com/posts",
+					"protocol": "https",
+					"host": [
+						"week5-node",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "新增貼文",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"content\": \"各位我有一個作戰計畫2\",\n    \"image\": \"https://123.com/222.png\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://week5-node.herokuapp.com/posts",
+					"protocol": "https",
+					"host": [
+						"week5-node",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
