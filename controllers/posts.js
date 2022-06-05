@@ -16,7 +16,7 @@ const post = {
   }),
   createdPosts: handleErrorAsync(async (req, res, next) => {
     const { body } = req;
-    if (body.content === undefined || body.user === undefined) {
+    if (body.content === undefined || body.content === "" || body.user === undefined) {
       return next(appError(400, "你沒有填寫user或是content"));
     }
     if (body.image && !body.image.startsWith("https")) {
