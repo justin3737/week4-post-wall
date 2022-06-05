@@ -91,14 +91,13 @@ const errorHandlerMainProcess = (err, req, res, next) => {
       err.message = isSyntaxError
         ? "資料格式錯誤，請重新輸入"
         : err.message || "資料欄位未填寫正確，請重新輸入",
-      err.isValidationError = true;
       err.isOperational = true;
     }
 
-    if (process.env.NODE_ENV === "development") {
-      return handleDevError(err, res);
+    if (process.env.NODE_ENV === "dev") {
+      return resErrorDev(err, res);
     }
-    handleProdError(err, res);
+    resErrorProd(err, res);
   }
 };
 
