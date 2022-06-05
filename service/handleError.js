@@ -74,7 +74,15 @@ const resErrorProd = (err, res) => {
 
 const errorHandlerMainProcess = (err, req, res, next) => {
   if (err) {
+      const isJsonWebTokenError = err.name === 'JsonWebTokenError';
       err.statusCode = err.statusCode || 500;
+
+      if (isJsonWebTokenError) {
+        err.statusCode = 401;
+        err.message = '您尚未登入';
+        err.isOperational = true;
+      }
+
       // dev
       if (process.env.NODE_ENV === 'dev') {
           return resErrorDev(err, res)
