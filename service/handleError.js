@@ -75,6 +75,9 @@ const resErrorProd = (err, res) => {
 const errorHandlerMainProcess = (err, req, res, next) => {
   if (err) {
     const isJsonWebTokenError = err.name === "JsonWebTokenError";
+    const isValidationError = err.name === "ValidationError";
+    const isSyntaxError = err instanceof SyntaxError
+      && err.status === 400 && "body" in err;
     err.statusCode = err.statusCode || 500;
 
     if (isJsonWebTokenError) {
@@ -82,18 +85,20 @@ const errorHandlerMainProcess = (err, req, res, next) => {
       err.message = "您尚未登入";
       err.isOperational = true;
     }
-
-    // dev
-    if (process.env.NODE_ENV === "dev") {
-      return resErrorDev(err, res);
-    }
-    // production
-    if (err.name === "ValidationError") {
-      err.message = "資料欄位未填寫正確，請重新輸入！";
+    // validation error
+    else if (isValidationError || isSyntaxError) {
+      err.statusCode = 400;
+      err.message = isSyntaxError
+        ? "資料格式錯誤，請重新輸入"
+        : err.message || "資料欄位未填寫正確，請重新輸入",
+      err.isValidationError = true;
       err.isOperational = true;
-      return resErrorProd(err, res);
     }
-    resErrorProd(err, res);
+
+    if (process.env.NODE_ENV === "development") {
+      return handleDevError(err, res);
+    }
+    handleProdError(err, res);
   }
 };
 
