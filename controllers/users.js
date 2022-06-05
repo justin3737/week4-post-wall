@@ -27,25 +27,25 @@ const user = {
       body: { name, email, password, confirmPassword },
     } = req;
     //內容不可為空
-    if (!name || !email || !password || !confirmPassword) {
-      return next(appError("400", "欄位未正確填寫!"));
-    }
+    if (!name || !email || !password || !confirmPassword)
+      return next(appError(400, "欄位未正確填寫"));
+
     //密碼正確
-    if (password!==confirmPassword) {
-      return next(appError("400", "密碼不一致"));
-    }
+    if (password!==confirmPassword)
+      return next(appError(400, "密碼不一致"));
+
     //密碼 8 碼以上
-    if (!validator.isLength(password, {min: 8})) {
-      return next(appError("400", "密碼數字低於 8 碼"));
-    }
+    if (!validator.isLength(password, {min: 8}))
+      return next(appError(400, "密碼數字低於 8 碼"));
+
     //是否為 Email
-    if (!validator.isEmail(email)) {
-      return next(appError("400", "Email 格式不正看"));
-    }
+    if (!validator.isEmail(email))
+      return next(appError(400, "Email 格式不正確"));
+
     //已被註冊
     const exist = await User.findOne({ email });
     if (exist)
-      return next(appError("201", "帳號已被註冊，請替換新的 Email!"));
+      return next(appError("201", "帳號已被註冊，請替換新的 Email"));
 
     //加密密碼
     password = await bcrypt.hash(req.body.password, 12);
@@ -61,13 +61,13 @@ const user = {
       body: { email, password }
     } = req;
     //確認帳號密碼不為空
-    if (!(email && password))
-      return next(appError(400, "請填寫帳號及密碼!"));
+    if (!email || !password)
+      return next(appError(400, "欄位未正確填寫"));
 
     //確認有這位使用者
     const user = await User.findOne({ email }).select("+password");
     if (!user)
-      return next(appError(400, "您尚未註冊會員!"));
+      return next(appError(400, "您尚未註冊會員"));
     //帳號或密碼錯誤
     const isAuth = await bcrypt.compare(password, user.password);
     if (!isAuth)
@@ -77,8 +77,15 @@ const user = {
   }),
   updatePassword: handleErrorAsync(async (req, res, next) => {
     const { password, confirmPassword } = req.body;
+    //內容不可為空
+    if (!password || !confirmPassword)
+      return next(appError(400, "欄位未正確填寫"));
+
+    if (!validator.isLength(password, {min: 8}))
+      return next(appError(400, "密碼數字低於 8 碼"));
+
     if(password !== confirmPassword)
-      return next(appError("400", "密碼不一致！"));
+      return next(appError(400, "密碼不一致"));
 
     const newPassword = await bcrypt.hash(password, 12);
     const user = await User.findByIdAndUpdate(req.user.id, {
@@ -98,9 +105,11 @@ const user = {
     //需填寫內容
     if (!(name && gender))
       return next(appError(400, "請填寫修改資訊"));
+
     //名字需要2個字以上
     if (!validator.isLength(name, {min: 2}))
       return next(appError(400, "名字需要2個字以上"));
+
     //正確填寫性別
     if (!["male", "female"].includes(gender))
       return next(appError(400, "請正確填寫性別"));
