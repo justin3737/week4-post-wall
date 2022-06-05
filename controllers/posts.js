@@ -19,6 +19,9 @@ const post = {
       if (body.content === undefined || body.user === undefined) {
         return next(appError(400, '你沒有填寫user或是content'))
       }
+      if (body.image && !body.image.startsWith('https')) {
+        return next(appError(400, '貼文圖片網址錯誤'));
+      }
       const newPost = await Post.create({
         user: body.user,
         content: body.content,
