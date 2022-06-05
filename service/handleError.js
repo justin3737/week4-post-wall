@@ -1,4 +1,4 @@
-const { errorMsg } = require("../services/enum");
+const { errorMsg } = require("./enum");
 // 自定義 error
 /**
  * @description - 負責將所以API的錯誤統一並回傳統一error格式
