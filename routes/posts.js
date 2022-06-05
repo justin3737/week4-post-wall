@@ -1,13 +1,13 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-const PostsControllers = require('../controllers/posts');
-const isAuth = require('../middleware/auth');
+const PostsControllers = require("../controllers/posts");
+const isAuth = require("../middleware/auth");
 
-router.get('/', isAuth, (req, res, next) =>
+router.get("/", isAuth, (req, res, next) =>
   PostsControllers.getPosts(req, res, next)
 );
 
-router.post('/', isAuth, (req, res, next) =>
+router.post("/", isAuth, (req, res, next) =>
   PostsControllers.createdPosts(req, res, next)
 );
 

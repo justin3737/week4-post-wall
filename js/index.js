@@ -1,41 +1,41 @@
 function init() {
   getPost();
   //監聽下拉選單
-  $on(qs('#timeSelect'), 'change', function(){
+  $on(qs("#timeSelect"), "change", function(){
     getPost(this.value);
-  })
+  });
   //監聽關鍵字搜尋按鈕
-  $on(qs('#searchBtn'), 'click',function(){
-    let text = qs('#searchText').value;
-    let time = qs('#timeSelect').value;
-    getPost(time, text)
-  })
+  $on(qs("#searchBtn"), "click", function(){
+    let text = qs("#searchText").value;
+    let time = qs("#timeSelect").value;
+    getPost(time, text);
+  });
 }
 
 function getPost (sort, qString) {
-  let timeSort = sort || 'desc';
-  let q = qString || '';
+  let timeSort = sort || "desc";
+  let q = qString || "";
   fetch(`https://week4metawall.herokuapp.com/posts?timeSort=${timeSort}&q=${q}`)
     .then(res => res.json())
     .then(posts => {
-      updateList(posts.data)
+      updateList(posts.data);
     })
-    .catch(error => console.error(error))
+    .catch(error => console.error(error));
 }
 
 function updateList(dataList) {
-  const postlist = qs('.post-list');
-  const postlistEmpty = qs('.post-list-empty');
-  const postlistEmptyDesc = qs('.no-data-desc');
+  const postlist = qs(".post-list");
+  const postlistEmpty = qs(".post-list-empty");
+  const postlistEmptyDesc = qs(".no-data-desc");
 
   if(dataList.length > 0) {
-    postlistEmpty.classList.add('hidden');
-    postlist.classList.remove('hidden');
-    postlist.innerHTML = '';  //先清空資料
+    postlistEmpty.classList.add("hidden");
+    postlist.classList.remove("hidden");
+    postlist.innerHTML = "";  //先清空資料
 
     dataList.forEach((data, idx) => {
-      const story = document.createElement('li');
-      story.classList.add('rounded-lg','border-2','border-black-100','p-6','shadow-card');
+      const story = document.createElement("li");
+      story.classList.add("rounded-lg", "border-2", "border-black-100", "p-6", "shadow-card");
       story.innerHTML =
       ` <div class="mb-4 flex items-center">
           <img
@@ -61,17 +61,17 @@ function updateList(dataList) {
         </picture>
       `;
 
-      postlist.append(story)
+      postlist.append(story);
 
 
-      if (data.image && data.image.startsWith('https')) {
+      if (data.image && data.image.startsWith("https")) {
         appendImage(data.image, idx);
       }
     });
 
   } else {
-    postlistEmpty.classList.remove('hidden');
-    postlist.classList.add('hidden');
-    postlistEmptyDesc.innerHTML = '查詢資料為空，請嘗試其他關鍵字！'
+    postlistEmpty.classList.remove("hidden");
+    postlist.classList.add("hidden");
+    postlistEmptyDesc.innerHTML = "查詢資料為空，請嘗試其他關鍵字！";
   }
 }

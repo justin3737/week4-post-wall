@@ -1,18 +1,18 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const usersSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, '貼文姓名未填寫']
+      required: [true, "貼文姓名未填寫"]
     },
     email: {
       type: String,
       unique: true,
-      required: [true, 'Email 未填寫']
+      required: [true, "Email 未填寫"]
     },
     password: {
       type: String,
-      required: [true, '請填寫密碼'],
+      required: [true, "請填寫密碼"],
       minlength: 8,
       select: false
     },
@@ -21,8 +21,8 @@ const usersSchema = new mongoose.Schema(
     },
     gender: {
       type: String,
-      default: 'male',
-      enum: ['male', 'female']
+      default: "male",
+      enum: ["male", "female"]
     },
     createdAt: {
       type: Date,
@@ -35,6 +35,6 @@ const usersSchema = new mongoose.Schema(
   }
 );
 
-const users = mongoose.model('user', usersSchema);
+const users = mongoose.model("user", usersSchema);
 
 module.exports = users;

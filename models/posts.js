@@ -1,10 +1,10 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const postsSchema = new mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.ObjectId,
-      ref: 'user',
-      required: [true, '貼文 ID 未填寫']
+      ref: "user",
+      required: [true, "貼文 ID 未填寫"]
     },
     image: {
       type: String,
@@ -16,13 +16,13 @@ const postsSchema = new mongoose.Schema(
     },
     content: {
       type: String,
-      required: [true, 'Content 未填寫'],
+      required: [true, "Content 未填寫"],
     },
     likes: {
       type: Number,
       default: 0
     },
-    comments:{
+    comments: {
       type: Number,
       default: 0
     },
@@ -33,7 +33,7 @@ const postsSchema = new mongoose.Schema(
 );
 
 const posts = mongoose.model(
-  'posts',
+  "posts",
   postsSchema
 );
 
