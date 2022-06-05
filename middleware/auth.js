@@ -1,36 +1,29 @@
+const User = require("../models/user");
 const { handleErrorAsync, appError } = require("../service/handleError");
-const jwt = require("jsonwebtoken");
-const User = require("../models/users");
+const { getDecryptedJWT } = require("../services/auth");
+const { errorMsg } = require("../services/enum");
 
 const auth = handleErrorAsync(async (req, res, next) => {
-  // 確認 token 是否存在
   const {
     headers: { authorization = "" },
   } = req;
-
   let token = "";
   if (authorization.startsWith("Bearer")) {
     token = authorization.split(" ")[1];
   }
 
   if (!token) {
-    return next(appError(401, "你尚未登入！"));
+    return next(appError(401, errorMsg.auth));
   }
+  const decryptedData = getDecryptedJWT(token);
+  if (!decryptedData) return next(appError(401, errorMsg.auth));
 
-  // 驗證 token 正確性
-  const decoded = await new Promise((resolve, reject)=>{
-    jwt.verify(token, process.env.JWT_SECRET, (err, payload)=>{
-      if(err){
-        reject(err);
-      }else{
-        resolve(payload);
-      }
-    });
-  });
-  const currentUser = await User.findById(decoded.id);
+  const user = await User.findById(decryptedData.id);
+  if (!user) return next(appError(401, errorMsg.auth));
 
-  req.user = currentUser;
+  req.user = user;
   next();
 });
+
 
 module.exports = auth;

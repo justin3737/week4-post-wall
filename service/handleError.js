@@ -1,3 +1,4 @@
+const { errorMsg } = require("../services/enum");
 // 自定義 error
 /**
  * @description - 負責將所以API的錯誤統一並回傳統一error格式
@@ -66,7 +67,7 @@ const resErrorProd = (err, res) => {
       .json(resErrorData);
   } else {
     console.error("出現重大錯誤", err);
-    resErrorData.message = "系統錯誤，請洽系統管理員";
+    resErrorData.message = errorMsg.app;
     res.status(err.statusCode)
       .json(resErrorData);
   }
@@ -82,15 +83,15 @@ const errorHandlerMainProcess = (err, req, res, next) => {
 
     if (isJsonWebTokenError) {
       err.statusCode = 401;
-      err.message = "您尚未登入";
+      err.message = errorMsg.auth;
       err.isOperational = true;
     }
     // validation error
     else if (isValidationError || isSyntaxError) {
       err.statusCode = 400;
       err.message = isSyntaxError
-        ? "資料格式錯誤，請重新輸入"
-        : err.message || "資料欄位未填寫正確，請重新輸入",
+        ? errorMsg.syntax
+        : err.message || errorMsg.validation,
       err.isOperational = true;
     }
 
